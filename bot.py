@@ -1,25 +1,31 @@
 # -*- coding: utf-8 -*-
-from telegram.ext import Updater
-from telegram.ext import CommandHandler, CallbackQueryHandler, BaseFilter, MessageHandler, InlineQueryHandler, ChosenInlineResultHandler
-from telegram import ChatAction, InlineQuery, InlineKeyboardButton, InlineKeyboardMarkup, ForceReply, InlineQueryResultPhoto, InlineQueryResultArticle, InputTextMessageContent, InlineQueryResultCachedSticker
+import logging
+from pprint import pprint
+
 import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from pprint import pprint
-import logging
-import os
+from telegram import ChatAction, InlineKeyboardButton, InlineKeyboardMarkup, ForceReply, InlineQueryResultPhoto, \
+    InlineQueryResultArticle, InputTextMessageContent
+from telegram.ext import CommandHandler, CallbackQueryHandler, BaseFilter, MessageHandler, InlineQueryHandler, \
+    ChosenInlineResultHandler
+from telegram.ext import Updater
+
 import config
 
 BOT_TOKEN = config.BOT_TOKEN
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
+
 class FilterUsernameRec(BaseFilter):
-    def filter(self,message):
+    def filter(self, message):
         if bool(message.reply_to_message):
             return 'Okay, then! Now send me your name of your cute creature so that I can finish up this process, and send you the avatar.' == message.reply_to_message.text
 
+
 filter_usernameRec = FilterUsernameRec()
+
 
 def start(bot, update):
     username = update.message.from_user.first_name
@@ -37,11 +43,11 @@ def findHex(color):
     soup = BeautifulSoup(plain_text,'lxml')
 
     hex = soup.body.get('style').split(':')[1].strip()
-    hex = hex.replace('#','')
+    hex = hex.replace('#', '')
     return hex
 
 
-def sendHexCode(bot,update,args):
+def sendHexCode(bot, update, args):
     color = args[0]
     hexColor = findHex(color)
     bot.send_chat_action(chat_id=update.message.chat_id,action=ChatAction.TYPING)
@@ -94,11 +100,6 @@ def createMenuButtons(bot, update, user_data):
         bot.send_chat_action(chat_id=query.message.chat_id,action=ChatAction.UPLOAD_PHOTO)
         bot.sendPhoto(chat_id=query.message.chat_id,photo=url,reply_to_message_id=query.message.message_id)
 
-    if query.data == 'monsters':
-        bot.send_chat_action(chat_id=query.message.chat_id,action=ChatAction.TYPING)
-        bot.send_message(text='Okay, then! Now send me your name of your monster so that I can finish up this process, and send you the avatar.',chat_id=query.message.chat_id,reply_markup=ForceReply())
-
-
 
 def eyesInlineQuery(bot, update):
     # stickers = {1:'CAADBQADDgADH4bQV3gye5od01QvAg', 10:'CAADBQADDwADH4bQV4F84uAxsx7RAg', 2:'CAADBQADEAADH4bQVzPpXmKZc4BxAg', 3:'CAADBQADEQADH4bQV6aBEKZB1NZqAg', 4:'CAADBQADEgADH4bQV4Xn3TVTy2IBAg', 5:'CAADBQADEwADH4bQV83aozUBEf6sAg', 6:'CAADBQADFAADH4bQV2XGD-Q7Va7nAg', 7:'CAADBQADFQADH4bQV1GeQHFlnBdZAg', 9:'CAADBQADFgADH4bQV3bW84N01hA8Ag'}
@@ -107,21 +108,24 @@ def eyesInlineQuery(bot, update):
     # for i in stickers.items():
     #     results.append(InlineQueryResultCachedSticker(type='sticker',id=i[0],sticker_file_id=i[1]))
 
-    results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/eyes/eyes{0}.png'.format(str(k)), thumb_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/eyes/eyes{0}.png'.format(str(k)),input_message_content=InputTextMessageContent(message_text='eyes{0}'.format(str(k)))) for k in (1,10,2,3,4,5,6,7,9)]
+    results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/eyes/eyes{0}.png'.format(str(k)), thumb_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/eyes/eyes{0}.png'.format(str(k)),input_message_content=InputTextMessageContent(message_text='eyes{0}'.format(str(k)))) for k in (1,10,2,3,4,5,6,7,9)]
 
-    bot.answerInlineQuery(update.inline_query.id,results=results)
+    bot.answerInlineQuery(update.inline_query.id, results=results)
+
 
 def mouthInlineQuery(bot,update):
-    results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/mouth/mouth{0}.png'.format(str(k)), thumb_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/mouth/mouth{0}.png'.format(str(k)),input_message_content=InputTextMessageContent(message_text='mouth{0}'.format(str(k)))) for k in (1,10,11,3,5,6,7,9)]
+    results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/mouth/mouth{0}.png'.format(str(k)), thumb_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/mouth/mouth{0}.png'.format(str(k)),input_message_content=InputTextMessageContent(message_text='mouth{0}'.format(str(k)))) for k in (1,10,11,3,5,6,7,9)]
+
+    bot.answerInlineQuery(update.inline_query.id, results=results)
+
+
+def noseInlineQuery(bot, update):
+    results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/nose/nose{0}.png'.format(str(k)), thumb_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/nose/nose{0}.png'.format(str(k)),input_message_content=InputTextMessageContent(message_text='nose{0}'.format(str(k)))) for k in (2,3,4,5,6,7,8,9)]
 
     bot.answerInlineQuery(update.inline_query.id,results=results)
 
-def noseInlineQuery(bot,update):
-    results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/nose/nose{0}.png'.format(str(k)), thumb_url='https://raw.githubusercontent.com/udit-001/ado-bot/master/assets/nose/nose{0}.png'.format(str(k)),input_message_content=InputTextMessageContent(message_text='nose{0}'.format(str(k)))) for k in (2,3,4,5,6,7,8,9)]
 
-    bot.answerInlineQuery(update.inline_query.id,results=results)
-
-def colorInlineQuery(bot,update):
+def colorInlineQuery(bot, update):
     query = update.inline_query.query
 
     color = query.split("color")[1].strip()
@@ -129,14 +133,15 @@ def colorInlineQuery(bot,update):
     if color:
         hex = findHex(color)
         msg = InputTextMessageContent(message_text=hex)
-        results = [InlineQueryResultArticle(type='article',id=hex,title=color.capitalize(),thumb_url='http://img.dummy-image-generator.com/_mono/dummy-200x200-color{0}-plain.jpg'.format(hex),input_message_content=msg)]
-        bot.answerInlineQuery(update.inline_query.id,results=results)
+        results = [InlineQueryResultArticle(type='article', id=hex, title=color.capitalize(), thumb_url='http://img.dummy-image-generator.com/_mono/dummy-200x200-color{0}-plain.jpg'.format(hex), input_message_content=msg)]
+        bot.answerInlineQuery(update.inline_query.id, results=results)
 
     else:
-        results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='http://img.dummy-image-generator.com/_mono/dummy-200x200-color{0}-plain.jpg'.format(str(k)), thumb_url='http://img.dummy-image-generator.com/_mono/dummy-200x200-color{0}-plain.jpg'.format(str(k)),photo_height=100,photo_width=100,input_message_content=InputTextMessageContent(message_text='{0}'.format(str(k)))) for k in ('EF5350','F44336','E53935','EC407A','E91E63','D81B60','AB47BC','9C27B0','8E24AA','7E57C2','673AB7','5E35B1','5C6BC0','3F51B5','3949AB','42A5F5','2196F3','1E88E5','26A69A','009688','00897B','81C784','66BB6A','4CAF50','9CCC65','8BC34A','7CB342','FFEE58','FFEB3B','FDD835','FF7043','FF5722','F4511E','8D6E63','795548','6D4C41','BDBDBD','9E9E9E','757575','90A4AE','78909C','607D8B')]
-        bot.answerInlineQuery(update.inline_query.id,results=results)
+        results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='http://img.dummy-image-generator.com/_mono/dummy-200x200-color{0}-plain.jpg'.format(str(k)), thumb_url='http://img.dummy-image-generator.com/_mono/dummy-200x200-color{0}-plain.jpg'.format(str(k)), photo_height=100, photo_width=100, input_message_content=InputTextMessageContent(message_text='{0}'.format(str(k)))) for k in ('EF5350', 'F44336', 'E53935', 'EC407A', 'E91E63', 'D81B60', 'AB47BC', '9C27B0', '8E24AA', '7E57C2', '673AB7', '5E35B1', '5C6BC0', '3F51B5', '3949AB','42A5F5','2196F3','1E88E5','26A69A','009688','00897B','81C784','66BB6A','4CAF50','9CCC65','8BC34A','7CB342','FFEE58','FFEB3B','FDD835','FF7043','FF5722','F4511E','8D6E63','795548','6D4C41','BDBDBD','9E9E9E','757575','90A4AE','78909C','607D8B')]
+        bot.answerInlineQuery(update.inline_query.id, results=results)
 
-def dis_headsInlineQuery(bot,update,user_data):
+
+def dis_headsInlineQuery(bot, update, user_data):
     chatId = user_data['config']['create_chat_id']
     msgId = user_data['config']['create_message_id']
 
@@ -145,12 +150,13 @@ def dis_headsInlineQuery(bot,update,user_data):
 
     if username:
         msg = InputTextMessageContent(message_text=username)
-        results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='https://robohash.org/{0}?set=set3&bgset=bg{1}&size=500x500'.format(username,k),thumb_url='https://robohash.org/{0}?set=set3&bgset=bg{1}&size=500x500'.format(username,k),input_message_content=msg) for k in ('1','2')]
-        bot.answerInlineQuery(update.inline_query.id,results=results)
+        results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='https://robohash.org/{0}?set=set3&bgset=bg{1}&size=500x500'.format(username,k),thumb_url='https://robohash.org/{0}?set=set3&bgset=bg{1}&size=500x500'.format(username,k),input_message_content=msg) for k in ('1','2')]
+        bot.answerInlineQuery(update.inline_query.id, results=results)
     else:
-        bot.edit_message_text(chat_id=chatId,message_id=msgId,text="Okay, then! Now send me the name of your disembodied head so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot dis_heads john`",parse_mode="Markdown")
+        bot.edit_message_text(chat_id=chatId, message_id=msgId, text="Okay, then! Now send me the name of your disembodied head so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot dis_heads john`",parse_mode="Markdown")
 
-def kittenInlineQuery(bot,update,user_data):
+
+def kittenInlineQuery(bot, update, user_data):
     chatId = user_data['config']['create_chat_id']
     msgId = user_data['config']['create_message_id']
 
@@ -159,12 +165,13 @@ def kittenInlineQuery(bot,update,user_data):
 
     if username:
         msg = InputTextMessageContent(message_text=username)
-        results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='https://robohash.org/{0}?set=set4&bgset=bg{1}&size=500x500'.format(username,k),thumb_url='https://robohash.org/{0}?set=set4&bgset=bg{1}&size=500x500'.format(username,k),input_message_content=msg) for k in ('1','2')]
-        bot.answerInlineQuery(update.inline_query.id,results=results)
+        results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='https://robohash.org/{0}?set=set4&bgset=bg{1}&size=500x500'.format(username, k), thumb_url='https://robohash.org/{0}?set=set4&bgset=bg{1}&size=500x500'.format(username, k), input_message_content=msg) for k in ('1', '2')]
+        bot.answerInlineQuery(update.inline_query.id, results=results)
     else:
-        bot.edit_message_text(chat_id=chatId,message_id=msgId,text="Okay, then! Now send me the name of your cute kitty, so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot kitten fluffy`",parse_mode="Markdown")
+        bot.edit_message_text(chat_id=chatId, message_id=msgId, text="Okay, then! Now send me the name of your cute kitty, so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot kitten fluffy`", parse_mode="Markdown")
 
-def robotInlineQuery(bot,update,user_data):
+
+def robotInlineQuery(bot, update, user_data):
     chatId = user_data['config']['create_chat_id']
     msgId = user_data['config']['create_message_id']
 
@@ -173,12 +180,13 @@ def robotInlineQuery(bot,update,user_data):
 
     if username:
         msg = InputTextMessageContent(message_text=username)
-        results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='https://robohash.org/{0}?set=set1&bgset=bg{1}&size=500x500'.format(username,k),thumb_url='https://robohash.org/{0}?set=set1&bgset=bg{1}&size=500x500'.format(username,k),input_message_content=msg) for k in ('1','2')]
-        bot.answerInlineQuery(update.inline_query.id,results=results)
+        results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='https://robohash.org/{0}?set=set1&bgset=bg{1}&size=500x500'.format(username,k),thumb_url='https://robohash.org/{0}?set=set1&bgset=bg{1}&size=500x500'.format(username,k),input_message_content=msg) for k in ('1','2')]
+        bot.answerInlineQuery(update.inline_query.id, results=results)
     else:
-        bot.edit_message_text(chat_id=chatId,message_id=msgId,text="Okay, then! Now send me the name of your robot, so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot robot alfred`",parse_mode="Markdown")
+        bot.edit_message_text(chat_id=chatId, message_id=msgId, text="Okay, then! Now send me the name of your robot, so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot robot alfred`",parse_mode="Markdown")
 
-def monsterInlineQuery(bot,update,user_data):
+
+def monsterInlineQuery(bot, update, user_data):
     chatId = user_data['config']['create_chat_id']
     msgId = user_data['config']['create_message_id']
 
@@ -187,24 +195,27 @@ def monsterInlineQuery(bot,update,user_data):
 
     if username:
         msg = InputTextMessageContent(message_text=username)
-        results = [InlineQueryResultPhoto(type='photo',id=k,photo_url='https://robohash.org/{0}?set=set2&bgset=bg{1}&size=500x500'.format(username,k),thumb_url='https://robohash.org/{0}?set=set2&bgset=bg{1}&size=500x500'.format(username,k),input_message_content=msg) for k in ('1','2')]
-        bot.answerInlineQuery(update.inline_query.id,results=results)
+        results = [InlineQueryResultPhoto(type='photo', id=k, photo_url='https://robohash.org/{0}?set=set2&bgset=bg{1}&size=500x500'.format(username,k),thumb_url='https://robohash.org/{0}?set=set2&bgset=bg{1}&size=500x500'.format(username,k),input_message_content=msg) for k in ('1','2')]
+        bot.answerInlineQuery(update.inline_query.id, results=results)
     else:
-        bot.edit_message_text(chat_id=chatId,message_id=msgId,text="Okay, then! Now send me the name of your monster, so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot monster frankenstein`",parse_mode="Markdown")
+        bot.edit_message_text(chat_id=chatId, message_id=msgId, text="Okay, then! Now send me the name of your monster, so that I can finish up this process, and send you the avatar.\n\nExample : `@avatarGenBot monster frankenstein`",parse_mode="Markdown")
 
-def adorablesMenuButtons(bot,update):
+
+def adorablesMenuButtons(bot, update):
     query = update.callback_query
 
     if query.data == 'username':
         bot.send_message(text='Okay, then! Now send me your name of your cute creature so that I can finish up this process, and send you the avatar.', chat_id=query.message.chat_id, message_id=query.message.message_id, reply_markup=ForceReply())
 
-def sendInline(bot,update):
+
+def sendInline(bot, update):
     if update.inline_query is not None and update.inline_query.query:
         query = update.inline_query.query
 
-        bot.sendPhoto(chat_id=update.message.chat_id,photo='http://api.adorable.io/avatars//'+name,reply_to_message_id=update.message.message_id)
+        bot.sendPhoto(chat_id=update.message.chat_id,photo='http://api.adorable.io/avatars//'+name, reply_to_message_id=update.message.message_id)
 
-def handle(bot,update,user_data):
+
+def handle(bot, update, user_data):
     user_data.setdefault('config',{})
     query = update['chosen_inline_result']['query']
     resultId = update['chosen_inline_result']['result_id']
@@ -226,10 +237,10 @@ def handle(bot,update,user_data):
         eyes = user_data['config'].get("eyes","Not selected yet!")
         color = user_data['config'].get("color","Not selected yet!")
         nose = user_data["config"].get("nose","Not selected yet!")
-        mouth = user_data["config"].get("mouth","Not selected yet!")
+        mouth = user_data["config"].get("mouth", "Not selected yet!")
 
         buttons = []
-        for k in ('eyes','nose','mouth','color'):
+        for k in ('eyes', 'nose', 'mouth', 'color'):
             if k not in user_data['config']:
                 buttons.append(k)
             else:
@@ -272,14 +283,13 @@ def handle(bot,update,user_data):
         bot.edit_message_text(text='Your monster has been summoned successfully! Go and pet it!☺️. Create more using /create',chat_id=user_data['config']['create_chat_id'],message_id=user_data['config']['create_message_id'])
         bot.sendPhoto(chat_id=update.effective_user.id,photo='https://robohash.org/{0}?set=set2&bgset=bg{1}&size=500x500'.format(username,resultID),caption='Here\'s your {0}! Don\'t worry he\'s friendly 👹'.format(username.capitalize()))
 
-
-    
     pprint(update.to_dict())
-    #pprint(user_data['config'])
+    # pprint(user_data['config'])
 
-def usernameRec(bot,update):
+
+def usernameRec(bot, update):
     bot.send_chat_action(chat_id=update.message.chat_id, action=ChatAction.UPLOAD_PHOTO)
-    bot.sendPhoto(chat_id=update.message.chat_id,photo='http://api.adorable.io/avatars/'+update.message.text,reply_to_message_id=update.message.message_id,caption='Here\'s your little {0}!'.format(update.message.text.capitalize()))
+    bot.sendPhoto(chat_id=update.message.chat_id, photo='http://api.adorable.io/avatars/'+update.message.text, reply_to_message_id=update.message.message_id, caption='Here\'s your little {0}!'.format(update.message.text.capitalize()))
 
 
 def error(bot, update, error):
@@ -289,28 +299,28 @@ def error(bot, update, error):
 
 def main():
     updater = Updater(token=BOT_TOKEN)
-    dispatcher = updater.dispatcher
 
-    updater.dispatcher.add_handler(CommandHandler('start',start))
-    updater.dispatcher.add_handler(CommandHandler('color',sendHexCode,pass_args=True))
-    updater.dispatcher.add_handler(CommandHandler('create',createMenu,pass_user_data=True))
-    updater.dispatcher.add_handler(CallbackQueryHandler(adorablesMenuButtons),group=1)
-    updater.dispatcher.add_handler(CallbackQueryHandler(createMenuButtons,pass_user_data=True))
-    updater.dispatcher.add_handler(InlineQueryHandler(eyesInlineQuery,pattern="eyes"))
-    updater.dispatcher.add_handler(InlineQueryHandler(mouthInlineQuery,pattern="mouth"))
-    updater.dispatcher.add_handler(InlineQueryHandler(noseInlineQuery,pattern="nose"))
-    updater.dispatcher.add_handler(InlineQueryHandler(colorInlineQuery,pattern="color"))
-    updater.dispatcher.add_handler(InlineQueryHandler(dis_headsInlineQuery,pattern="dis_heads",pass_user_data=True))
-    updater.dispatcher.add_handler(InlineQueryHandler(kittenInlineQuery,pattern="kitten",pass_user_data=True))
-    updater.dispatcher.add_handler(InlineQueryHandler(robotInlineQuery,pattern="robot",pass_user_data=True))
-    updater.dispatcher.add_handler(InlineQueryHandler(monsterInlineQuery,pattern="monster",pass_user_data=True))
-    updater.dispatcher.add_handler(ChosenInlineResultHandler(handle,pass_user_data=True))
+    updater.dispatcher.add_handler(CommandHandler('start', start))
+    updater.dispatcher.add_handler(CommandHandler('color', sendHexCode, pass_args=True))
+    updater.dispatcher.add_handler(CommandHandler('create', createMenu, pass_user_data=True))
+    updater.dispatcher.add_handler(CallbackQueryHandler(adorablesMenuButtons), group=1)
+    updater.dispatcher.add_handler(CallbackQueryHandler(createMenuButtons, pass_user_data=True))
+    updater.dispatcher.add_handler(InlineQueryHandler(eyesInlineQuery, pattern="eyes"))
+    updater.dispatcher.add_handler(InlineQueryHandler(mouthInlineQuery, pattern="mouth"))
+    updater.dispatcher.add_handler(InlineQueryHandler(noseInlineQuery, pattern="nose"))
+    updater.dispatcher.add_handler(InlineQueryHandler(colorInlineQuery, pattern="color"))
+    updater.dispatcher.add_handler(InlineQueryHandler(dis_headsInlineQuery, pattern="dis_heads", pass_user_data=True))
+    updater.dispatcher.add_handler(InlineQueryHandler(kittenInlineQuery, pattern="kitten", pass_user_data=True))
+    updater.dispatcher.add_handler(InlineQueryHandler(robotInlineQuery, pattern="robot", pass_user_data=True))
+    updater.dispatcher.add_handler(InlineQueryHandler(monsterInlineQuery, pattern="monster", pass_user_data=True))
+    updater.dispatcher.add_handler(ChosenInlineResultHandler(handle, pass_user_data=True))
     updater.dispatcher.add_handler(MessageHandler(filter_usernameRec, usernameRec))
     updater.dispatcher.add_error_handler(error)
 
     updater.start_polling()
 
     updater.idle()
+
 
 if __name__ == '__main__':
     main()
