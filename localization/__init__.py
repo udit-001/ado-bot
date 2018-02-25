@@ -1,10 +1,11 @@
 import gettext
 from localization.available import available_locales
 import config
+import os
 
 text = {}
 for locale in available_locales:
-    cat = gettext.Catalog("text", localedir="localization/locale", languages=[locale])
+    cat = gettext.Catalog("text", localedir=os.path.join("localization","locale"), languages=[locale])
     text[locale] = cat.gettext
 
 default = text[config.default_language]
