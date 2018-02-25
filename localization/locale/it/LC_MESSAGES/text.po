@@ -1,0 +1,239 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-10 04:41+0530\n"
+"PO-Revision-Date: 2018-02-10 04:41+0530\n"
+"Last-Translator: \n"
+"Language-Team: Italian\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Loco-Source-Locale: it_IT\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ../../../..\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Poedit-SearchPath-0: components\n"
+"X-Poedit-SearchPath-1: util\n"
+
+#: components/callbackqueries.py:21
+msgid "Using identifier"
+msgstr "Uso dell'identificatore"
+
+#: components/callbackqueries.py:21
+msgid "Create Custom"
+msgstr "Crea personalizzato"
+
+#: components/callbackqueries.py:21 components/callbackqueries.py:37
+msgid "Back ⬅️"
+msgstr "Indietro ⬅️"
+
+#: components/callbackqueries.py:24
+msgid ""
+"So, there are two ways by which we can create our cute creatures, by using "
+"username or identifier, or by using custom settings, choose the appropriate "
+"option from below, to start!"
+msgstr ""
+"Dunque, ci sono due modi in cui possiamo generare le nostre creature, usando "
+"un username o identificatore, o utilizzando parametri personalizzati, scegli "
+"l'opzione appropriata qua sotto per iniziare!"
+
+#: components/callbackqueries.py:27 components/commands.py:28
+msgid "Cute Creatures"
+msgstr "Creaturine"
+
+#: components/callbackqueries.py:27 components/commands.py:28
+msgid "Disembodied Heads 🗣️"
+msgstr "Teste senza corpo 🗣️"
+
+#: components/callbackqueries.py:27 components/commands.py:28
+msgid "Cute Kittens 😺"
+msgstr "Gattini 😺"
+
+#: components/callbackqueries.py:27 components/commands.py:28
+msgid "Robots 🤖"
+msgstr "Robot 🤖"
+
+#: components/callbackqueries.py:27 components/commands.py:28
+msgid "Monsters 👹"
+msgstr "Mostri 👹"
+
+#: components/callbackqueries.py:30 components/commands.py:32
+msgid "I can create the following kinds of avatars for you!"
+msgstr "Posso creare per te i seguenti tipi di avatar!"
+
+#: components/callbackqueries.py:37
+msgid "Eyes 👀"
+msgstr "Occhi 👀"
+
+#: components/callbackqueries.py:37
+msgid "Nose 👃"
+msgstr "Naso 👃"
+
+#: components/callbackqueries.py:37
+msgid "Mouth 👄"
+msgstr "Bocca 👄"
+
+#: components/callbackqueries.py:37
+msgid "Color"
+msgstr "Colore"
+
+#: components/callbackqueries.py:40
+msgid ""
+"You can select different options for eyes, nose, mouth and color, to create "
+"your own custom avatar. Press appropriate buttons below to proceed."
+msgstr ""
+"Puoi scegliere diverse opzioni per occhi, naso, bocca e colore, per creare il "
+"tuo personale avatar. Utilizza gli opportuni tasti qua sotto per procedere."
+
+#: components/callbackqueries.py:45
+msgid ""
+"Your avatar has been created successfully! Check it out. Create more using /"
+"create"
+msgstr ""
+"Il tuo avatar è stato creato con successo! Ecco a te. Creane altri usando /"
+"create"
+
+#: components/choseninline.py:27 components/choseninline.py:28
+#: components/choseninline.py:29 components/choseninline.py:30
+msgid "Not selected yet!"
+msgstr "Non ancora selezionato!"
+
+#: components/choseninline.py:40
+msgid "Create"
+msgstr "Crea"
+
+#: components/choseninline.py:41 components/choseninline.py:45
+msgid "Reset 🔃"
+msgstr "Reset 🔃"
+
+#: components/choseninline.py:50
+#, python-brace-format
+msgid ""
+"So far, your configuration for your custom avatar 👤 is :\n"
+"*Eyes* : `{0}`\n"
+"*Nose* : `{1}`\n"
+"*Mouth* : `{2}`\n"
+"*Color* : `{3}`"
+msgstr ""
+"Per ora, la configurazione del tuo avatar personalizzato 👤 è : \n"
+"*Occhi* : `{0}`\n"
+"*Naso* : `{1}`\n"
+"*Bocca* : `{2}`\n"
+"*Colore* : `{3}`"
+
+#: components/choseninline.py:59
+msgid ""
+"Your robot 🤖 has been manufactured successfully! Go and test it out!. Create "
+"more using /create"
+msgstr ""
+"Il tuo robot 🤖 è stato costruito con successo! Vai a testarlo! Creane altri "
+"con /create"
+
+#: components/choseninline.py:63 components/choseninline.py:74
+#: components/message.py:13
+#, python-brace-format
+msgid "Here's your little {0}!"
+msgstr "Ecco il tuo piccolo {0}!"
+
+#: components/choseninline.py:70
+msgid ""
+"Your avatar 👤 has been created successfully! Check it out. Create more using /"
+"create"
+msgstr ""
+"Il tuo avatar 👤 è stato creato con successo! Ecco a te. Creane altri usando /"
+"create"
+
+#: components/choseninline.py:81
+msgid ""
+"Your kitty 🐱 has been summoned successfully! Go and pet it! Create more "
+"using /create"
+msgstr ""
+"Il tuo gattino 🐱 è stato evocato con successo! Vai ad accarezzarlo! Creane "
+"altri con /create"
+
+#: components/choseninline.py:85
+#, python-brace-format
+msgid "Here's your cute little {0}!"
+msgstr "Ecco il tuo carinissimo piccolo {0}!"
+
+#: components/choseninline.py:92
+msgid ""
+"Your monster has been summoned successfully! Go and pet it! Create more "
+"using /create"
+msgstr ""
+"Il tuo mostro è stato evocato con successo! Vai ad accarezzarlo! Creane altri "
+"con /create"
+
+#: components/choseninline.py:96
+#, python-brace-format
+msgid "Here's your {0}! Don't worry he's friendly."
+msgstr "Ecco il tuo {0}! Non preoccuparti non morde."
+
+#: components/commands.py:13
+#, python-brace-format
+msgid ""
+"Hi {0} 👋, I can help you in creating an avatar for your bot or yourself in "
+"seconds try using /create."
+msgstr ""
+"Ciao {0} 👋, posso aiutarti a creare un avatar per te o il tuo bot in pochi "
+"secondi, prova ad usare /create."
+
+#: components/otheravatars.py:19
+msgid ""
+"Alright! Now send me the name of your disembodied head so that I can finish "
+"up this process, and send you the avatar.\n"
+"\n"
+"Example : `@avatarGenBot dis_heads john`"
+msgstr ""
+"Buona! Ora inviami il nome della tua testa mozzata, così che possa terminare "
+"la creazione e spedirti il tuo avatar.\n"
+"\n"
+"Esempio : `@avatarGenBot testa di john`"
+
+#: components/otheravatars.py:35
+msgid ""
+"Alright! Now send me the name of your cute kitty, so that I can finish up "
+"this process, and send you the avatar.\n"
+"\n"
+"Example : `@avatarGenBot kitten fluffy`"
+msgstr ""
+"Buona! Ora inviami il nome del tuo gattino, così che possa terminare la "
+"creazione e spedirti il tuo avatar.\n"
+"\n"
+"Esempio : `@avatarGenBot soffice gattino`"
+
+#: components/otheravatars.py:51
+msgid ""
+"Alright! Now send me the name of your robot, so that I can finish up this "
+"process, and send you the avatar.\n"
+"\n"
+"Example : `@avatarGenBot robot alfred`"
+msgstr ""
+"Buona! Ora inviami il nome del tuo robot, così che possa terminare la "
+"creazione e spedirti il tuo avatar.\n"
+"\n"
+"Esempio : `@avatarGenBot alfred`"
+
+#: components/otheravatars.py:67
+msgid ""
+"Alright! Now send me the name of your monster, so that I can finish up this "
+"process, and send you the avatar.\n"
+"\n"
+"Example : `@avatarGenBot monster frankenstein`"
+msgstr ""
+"Buona! Ora inviami il nome del tuo mostro, così che possa terminare la "
+"creazione e spedirti il tuo avatar.\n"
+"\n"
+"Esempio : `@avatarGenBot frankenstein`"
+
+#~ msgid "Cute Kittens"
+#~ msgstr "Gattini"
+
+#~ msgid "Robots"
+#~ msgstr "Robot"
+
+#~ msgid "Back"
+#~ msgstr "Indietro"

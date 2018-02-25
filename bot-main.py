@@ -11,6 +11,6 @@ updater = Updater(token=config.telegram_token)
 
 register(updater.dispatcher)
 
-updater.start_polling()
+updater.start_polling(config.polling_interval)
 
 updater.idle()
