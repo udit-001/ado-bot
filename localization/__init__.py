@@ -4,7 +4,7 @@ import config
 
 text = {}
 for locale in available_locales:
-    cat = gettext.Catalog("text", localedir="localization/locale", languages=[locale])
+    cat = gettext.Catalog("text", localedir="locale", languages=[locale])
     text[locale] = cat.gettext
 
 default = text[config.default_language]
